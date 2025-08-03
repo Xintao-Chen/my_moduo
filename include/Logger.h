@@ -37,7 +37,7 @@
 #define LOG_WARN(logmsgFormat, ...)                       \
     do {                                                  \
         Logger &logger = Logger::instance();              \
-        logger.setLogLevel(FATAL);                        \
+        logger.setLogLevel(WARN);                        \
         char buf[1024] = {0};                             \
         snprintf(buf, 1024, logmsgFormat, ##__VA_ARGS__); \
         logger.log(buf);                                  \

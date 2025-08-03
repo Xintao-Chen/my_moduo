@@ -14,8 +14,8 @@ class Poller {
     public:
         using ChannelList = std::vector<Channel *>;
 
-        Poller(EventLoop *loop);
-        virtual ~Poller() = default;
+        Poller(EventLoop *loop);        //所有的子类在初始化时都要调用父类的构造函数
+        virtual ~Poller() = default;    //vitrual 虚函数，让父类指针调用子类的函数实现
 
         // 给所有IO复用保留统一的接口
         virtual Timestamp poll(int timeoutMs, ChannelList *activeChannels) = 0;

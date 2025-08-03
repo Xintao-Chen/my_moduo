@@ -69,7 +69,7 @@ class Channel : noncopyable{
         int revents_;       // Poller返回的具体发生的事件
         EventLoop* loop_;    // 事件循环
 
-        int index_; // 不明白干什么的
+        int index_; //记录在poller的状态，epoll_ctl只能加一次，之后只能改变
 
         std::weak_ptr<void> tie_;  // TcpConnection 的指针，检查这个channel是否还活着（连接关闭没有）
         bool tied_;     // 有tie_, 就说明还连接着。
