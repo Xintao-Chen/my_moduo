@@ -116,3 +116,5 @@ void EPollPoller::fillActiveChannels(int numEvents, ChannelList *activeChannels)
         activeChannels->push_back(channel); // EventLoop就拿到了它的Poller给它返回的所有发生事件的channel列表了
     }
 }
+
+
