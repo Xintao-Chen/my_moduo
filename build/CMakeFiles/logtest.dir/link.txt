@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/logtest.dir/main.cc.o CMakeFiles/logtest.dir/src/Logger.cc.o CMakeFiles/logtest.dir/src/Timestamp.cc.o -o logtest 

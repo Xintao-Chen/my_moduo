@@ -11,3 +11,9 @@ add_executable(logtest
     src/Logger.cc
     src/Timestamp.cc
 )
+
+add_executable(inetAddress_test
+    src/InetAddress.cc
+)
+
+target_compile_definitions(inetAddress_test PRIVATE TEST_MODE=1)
