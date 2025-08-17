@@ -36,3 +36,6 @@
 
 
 BUFFER:: 在读写fd时存储信息， 不够了在扩大，  extrabuf来临时存放数据
+
+
+std::thread 是c++提供的os线程的句柄，销毁thread对象, 不一定os线程销毁。
