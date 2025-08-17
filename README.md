@@ -39,3 +39,47 @@ BUFFER:: 在读写fd时存储信息， 不够了在扩大，  extrabuf来临时�
 
 
 std::thread 是c++提供的os线程的句柄，销毁thread对象, 不一定os线程销毁。
+
+
+
+
+TcpConnection::send()
+        │
+        │  数据没写完 → append 到 outputBuffer_
+        │  然后：
+        ▼
+channel_->enableWriting()
+        │
+        │  (修改 channel 的关心事件，增加 EPOLLOUT)
+        │
+        ▼
+EventLoop::updateChannel()
+        │
+        │  (调用 Poller::updateChannel → epoll_ctl 注册 EPOLLOUT)
+        │
+        ▼
+epoll_wait()
+        │
+        │  (阻塞等待内核事件)
+        │
+        ▼
+[内核] 发现 fd 可写 → 返回 EPOLLOUT
+        │
+        ▼
+Channel::handleEvent()
+        │
+        │  revents_ & EPOLLOUT
+        │
+        ▼
+writeCallback_()
+        │
+        ▼
+TcpConnection::handleWrite()
+        │
+        │  尝试把 outputBuffer_ 剩余数据写到 fd
+        │  如果写完 → channel_->disableWriting()
+        │             (取消对 EPOLLOUT 的监听)
+        │  如果没写完 → 继续保持 enableWriting，
+        │                下次 epoll_wait 再次通知
+        ▼
+完成/继续等待
